@@ -11,10 +11,10 @@ addons:
     - puppet
 
 before_install:
-  - apt-add-repository ppa:ansible/ansible
+  - sudo apt-add-repository ppa:ansible/ansible
 
 install:
-  - apt-get install ansible
+  - sudo apt-get install ansible
   - ansible-galaxy install deekayen.sadpuppet
   - pip install ansible-review
 
