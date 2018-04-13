@@ -1,0 +1,7 @@
+---
+
+- name: Remove RPM GPG keys.
+  rpm_key:
+    key: "{{ item }}"
+    state: absent
+  with_items: "{{ puppet_el_yum_keys }}"

@@ -1,0 +1,13 @@
+---
+
+- name: Ensure specific paths are absent.
+  file:
+    path: "{{ item }}"
+    state: absent
+  with_items: "{{ puppet_el_paths }}"
+
+- name: Remove APT GPG keys.
+  rpm_key:
+    key: "{{ item }}"
+    state: absent
+  with_items: "{{ puppet_apt_keys }}"

@@ -1,0 +1,22 @@
+---
+
+- name: Use package manager to remove Puppet.
+  package:
+    name: puppet
+    state: absent
+
+- name: Ensure specific paths are absent.
+  file:
+    path: "{{ item }}"
+    state: absent
+  with_items: "{{ puppet_paths }}"
+
+- debug:
+    var: ansible_os_family
+    verbosity: 2
+
+- include_tasks: debian.yml
+  when: ansible_os_family == "Debian"
+
+- include_tasks: redhat.yml
+  when: ansible_os_family == "RedHat"

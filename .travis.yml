@@ -1,0 +1,16 @@
+---
+
+language: python
+sudo: required
+dist: trusty
+addons:
+  apt:
+    packages:
+    - ansible
+    - puppet
+
+script:
+  - ansible-playbook --check --diff -i localhost, -c local tests/test.yml
+
+notifications:
+  webhooks: https://galaxy.ansible.com/api/v1/notifications/
