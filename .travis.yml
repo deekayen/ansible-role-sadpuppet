@@ -6,15 +6,20 @@ dist: trusty
 addons:
   apt:
     packages:
-    - ansible
+    - software-properties-common
     - python-pip
     - puppet
 
+before_install:
+  - apt-add-repository ppa:ansible/ansible
+
 install:
+  - apt-get install ansible
   - ansible-galaxy install deekayen.sadpuppet
   - pip install ansible-review
 
 before_script:
+  - ansible --version
   - ansible-review --version
 
 script:
