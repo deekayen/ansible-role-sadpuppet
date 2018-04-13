@@ -7,9 +7,18 @@ addons:
   apt:
     packages:
     - ansible
+    - python-pip
     - puppet
 
+install:
+  - ansible-galaxy install deekayen.sadpuppet
+  - pip install ansible-review
+
+before_script:
+  - ansible-review --version
+
 script:
+  - git ls-files | grep -Ei '^[^[:punct:]].+.(yaml|yml)$' | xargs ansible-review -q
   - ansible-playbook --check --diff -i localhost, -c local tests/test.yml
 
 notifications:
