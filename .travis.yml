@@ -16,13 +16,16 @@ before_install:
 
 install:
   - sudo apt-get install -y ansible
-  - sudo ansible-galaxy install deekayen.sadpuppet
+  - ansible-galaxy install deekayen.sadpuppet
   - pip install ansible-review
 
 before_script:
   - ansible --version
   - ansible-playbook --version
   - ansible-review --version
+  - git --version
+  - puppet --version
+  - python --version
 
 script:
   - git ls-files | grep -Ei '^[^[:punct:]].+.(yaml|yml)$' | xargs ansible-review -q
