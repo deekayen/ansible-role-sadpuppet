@@ -26,6 +26,7 @@ before_script:
   - git --version
   - puppet --version
   - python --version
+  - whereis puppet
 
 script:
   - git ls-files | grep -Ei '^[^[:punct:]].+.(yaml|yml)$' | xargs ansible-review -q
