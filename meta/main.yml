@@ -11,18 +11,12 @@ galaxy_info:
   github_branch: master
 
   platforms:
-    - name: Debian
-      versions:
-        - all
     - name: EL
       versions:
-        - all
-    - name: Fedora
-      versions:
-        - all
+        - 7
     - name: Ubuntu
       versions:
-        - all
+        - trusty
 
   galaxy_tags:
   - puppet
