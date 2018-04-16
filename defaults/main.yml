@@ -15,12 +15,7 @@ puppet_paths:
   - /var/log/puppet
   - /var/run/puppet
 
-puppet_apt_keys:
-  - https://apt.puppetlabs.com/DEB-GPG-KEY-puppet
-  - https://apt.puppetlabs.com/DEB-GPG-KEY-puppetlabs
-  - https://apt.puppetlabs.com/DEB-GPG-KEY-reductive
-
-puppet_el_yum_keys:
-  - http://yum.puppetlabs.com/RPM-GPG-KEY-puppet
-  - http://yum.puppetlabs.com/RPM-GPG-KEY-puppetlabs
-  - http://yum.puppetlabs.com/RPM-GPG-KEY-reductive
+puppet_keys:
+  - 6F6B15509CF8E59E6E469F327F438280EF8D349F
+  - 47B320EB4C7C375AA9DAE1A01054B7A24BD6EC30
+  - 9C6C545246912EE700FB5682FFAC86588347A27F
