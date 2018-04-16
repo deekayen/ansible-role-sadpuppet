@@ -2,6 +2,6 @@
 
 - name: Remove puppetlabs GPG keys.
   apt_key:
-    key: "{{ item }}"
+    id: "{{ item }}"
     state: absent
   with_items: "{{ puppet_keys }}"
