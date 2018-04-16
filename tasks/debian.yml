@@ -1,7 +1,7 @@
 ---
 
 - name: Remove APT GPG keys.
-  rpm_key:
+  apt_key:
     key: "{{ item }}"
     state: absent
   with_items: "{{ puppet_apt_keys }}"
