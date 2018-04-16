@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/deekayen/ansible-role-sadpuppet.svg?branch=master)](https://travis-ci.org/deekayen/ansible-role-sadpuppet)
+
 Sad Puppet
 ==========
 

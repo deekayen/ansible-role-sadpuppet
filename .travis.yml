@@ -12,6 +12,7 @@ addons:
 
 before_install:
   - sudo apt-add-repository -y ppa:ansible/ansible
+  - sudo apt-get update
 
 install:
   - sudo apt-get install -y ansible
@@ -20,11 +21,12 @@ install:
 
 before_script:
   - ansible --version
+  - ansible-playbook --version
   - ansible-review --version
 
 script:
   - git ls-files | grep -Ei '^[^[:punct:]].+.(yaml|yml)$' | xargs ansible-review -q
-  - ansible-playbook --diff -i localhost, -c local tests/test.yml
+  - ansible-playbook --check --diff -i localhost, -c local tests/test.yml
 
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/
