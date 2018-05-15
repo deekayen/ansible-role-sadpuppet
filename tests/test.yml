@@ -4,4 +4,4 @@
   become: true
 
   roles:
-    - deekayen.sadpuppet
+    - ansible-role-sadpuppet

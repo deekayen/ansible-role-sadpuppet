@@ -16,7 +16,6 @@ before_install:
 
 install:
   - sudo apt-get install -y ansible
-  - ansible-galaxy install deekayen.sadpuppet
   - pip install ansible-review
 
 before_script:
@@ -29,6 +28,7 @@ before_script:
   - whereis puppet
 
 script:
+  - printf '[defaults]\nroles_path=../' >ansible.cfg
   - git ls-files | grep -Ei '^[^[:punct:]].+.(yaml|yml)$' | xargs ansible-review -q
   - ansible-playbook --check --diff -i localhost, -c local tests/test.yml
 
