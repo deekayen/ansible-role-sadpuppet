@@ -1,8 +1,7 @@
 ---
 
 language: python
-sudo: required
-dist: trusty
+
 addons:
   apt:
     packages:
@@ -16,11 +15,13 @@ before_install:
 
 install:
   - sudo apt-get install -y ansible
+  - pip install ansible-lint
   - pip install ansible-review
 
 before_script:
   - ansible --version
   - ansible-playbook --version
+  - ansible-lint --version
   - ansible-review --version
   - git --version
   - puppet --version
@@ -29,8 +30,9 @@ before_script:
 
 script:
   - printf '[defaults]\nroles_path=../' >ansible.cfg
+  - git ls-files | grep yml | grep -v travis | xargs ansible-lint
   - git ls-files | grep -Ei '^[^[:punct:]].+.(yaml|yml)$' | xargs ansible-review -q
-  - ansible-playbook --check --diff -i localhost, -c local tests/test.yml
+  - ansible-playbook --check --diff -i localhost, -c local tests/test.yml -e 'ansible_python_interpreter=/usr/bin/python3'
 
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/
