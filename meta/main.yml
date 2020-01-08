@@ -16,11 +16,14 @@ galaxy_info:
     - name: EL
       versions:
         - 7
+    - name: Debian
+      versions:
+        - stretch
     - name: Ubuntu
       versions:
         - xenial
 
   galaxy_tags:
-  - puppet
+    - puppet
 
 dependencies: []
