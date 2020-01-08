@@ -8,7 +8,11 @@ Remove Puppet agents, all leftover files, and directories.
 Dependencies
 ------------
 
-None.
+Be sure you install the galaxy role in your runtime server.
+
+```
+ansible-galaxy install deekayen.sadpuppet
+```
 
 Default Variables
 -----------------
