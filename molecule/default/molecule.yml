@@ -11,6 +11,7 @@ platforms:
   - name: instance
     image: "puppet/puppet-agent-${MOLECULE_DISTRO:-centos}:latest"
     command: ${MOLECULE_DOCKER_COMMAND:-""}
+    pre_build_image: true
 provisioner:
   name: ansible
   lint:
