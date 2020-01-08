@@ -12,7 +12,6 @@ env:
     - MOLECULE_DISTRO: centos
     - MOLECULE_DISTRO: debian
     - MOLECULE_DISTRO: ubuntu
-    
 
 install:
   - pip install molecule docker
