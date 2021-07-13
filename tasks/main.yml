@@ -11,7 +11,8 @@
     state: absent
   with_items: "{{ puppet_paths }}"
 
-- debug:
+- name: Print the operating system family.
+  debug:
     var: ansible_os_family
     verbosity: 2
 

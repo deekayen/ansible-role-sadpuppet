@@ -1,0 +1,10 @@
+---
+
+- hosts: all
+  become: true
+
+  tasks:
+    - name: Install puppet.
+      apt:
+        name: puppet
+      when: ansible_os_family == 'Debian'

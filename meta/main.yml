@@ -1,5 +1,8 @@
+---
+
 galaxy_info:
   role_name: sadpuppet
+  namespace: deekayen
   author: David Norman
   description: Remove Puppet agents.
 
@@ -19,6 +22,7 @@ galaxy_info:
         - xenial
 
   galaxy_tags:
-  - puppet
+    - puppet
+    - uninstaller
 
 dependencies: []
