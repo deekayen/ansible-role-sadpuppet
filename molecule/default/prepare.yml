@@ -8,3 +8,10 @@
       apt:
         name: puppet
       when: ansible_os_family == 'Debian'
+
+    - name: Install puppet.
+      yum:
+        name: puppet
+      when:
+        - ansible_os_family is defined
+        - ansible_os_family == "RedHat"
