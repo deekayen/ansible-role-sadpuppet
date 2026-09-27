@@ -1,4 +1,9 @@
 ---
+# Debian 12+ and Ubuntu 24.04+ ship the agent as puppet-agent; puppet is
+# only a transitional package there.
+puppet_packages:
+  - puppet
+  - puppet-agent
 
 puppet_paths:
   - /etc/logrotate.d/puppet

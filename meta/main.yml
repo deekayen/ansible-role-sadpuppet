@@ -1,32 +1,33 @@
 ---
-
 galaxy_info:
-  role_name: sadpuppet
   namespace: deekayen
+  role_name: sadpuppet
   author: David Norman
   description: Remove Puppet agents.
 
   github_branch: main
   issue_tracker_url: https://github.com/deekayen/ansible-role-sadpuppet/issues
 
-  license: BSD
-
-  min_ansible_version: 2.4
+  license: BSD-3-Clause
+  min_ansible_version: "2.15"
 
   platforms:
-    - name: Debian
-      versions:
-        - buster
     - name: EL
       versions:
-        - 7
+        - "9"
+    - name: Debian
+      versions:
+        - bookworm
+        - trixie
     - name: Ubuntu
       versions:
-        - bionic
-        - focal
+        - jammy
+        - noble
+        - resolute
 
   galaxy_tags:
     - puppet
     - uninstaller
+    - cleanup
 
 dependencies: []

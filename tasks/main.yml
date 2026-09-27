@@ -1,23 +1,29 @@
 ---
+- name: Validate role variables.
+  ansible.builtin.import_tasks: assert.yml
+  tags:
+    - always
 
 - name: Use package manager to remove Puppet.
-  package:
-    name: puppet
+  ansible.builtin.package:
+    name: "{{ puppet_packages }}"
     state: absent
 
 - name: Ensure specific paths are absent.
-  file:
+  ansible.builtin.file:
     path: "{{ item }}"
     state: absent
-  with_items: "{{ puppet_paths }}"
+  loop: "{{ puppet_paths }}"
 
 - name: Print the operating system family.
-  debug:
+  ansible.builtin.debug:
     var: ansible_os_family
     verbosity: 2
 
-- include_tasks: debian.yml
+- name: Include Debian-family key removal.
+  ansible.builtin.include_tasks: debian.yml
   when: ansible_os_family == "Debian"
 
-- include_tasks: redhat.yml
+- name: Include RedHat-family key removal.
+  ansible.builtin.include_tasks: redhat.yml
   when: ansible_os_family == "RedHat"

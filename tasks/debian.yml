@@ -1,7 +1,21 @@
 ---
+# apt-key no longer exists on Debian 13 or Ubuntu 26.04, and it cannot run
+# without gpg. Without both, apt-key never added keys to a legacy keyring.
+- name: Check for apt-key.
+  ansible.builtin.stat:
+    path: /usr/bin/apt-key
+  register: sadpuppet_apt_key
+
+- name: Check for gpg.
+  ansible.builtin.stat:
+    path: /usr/bin/gpg
+  register: sadpuppet_gpg
 
 - name: Remove puppetlabs GPG keys.
-  apt_key:
+  ansible.builtin.apt_key:
     id: "{{ item }}"
     state: absent
-  with_items: "{{ puppet_keys }}"
+  loop: "{{ puppet_keys }}"
+  when:
+    - sadpuppet_apt_key.stat.exists
+    - sadpuppet_gpg.stat.exists

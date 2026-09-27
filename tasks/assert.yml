@@ -1,0 +1,18 @@
+---
+- name: Assert every puppet_paths entry is an absolute path.
+  ansible.builtin.assert:
+    that:
+      - puppet_paths | reject('match', '^/.+') | list | length == 0
+    fail_msg: >-
+      Every puppet_paths entry must be an absolute path, got:
+      {{ puppet_paths | reject('match', '^/.+') | list }}
+    quiet: true
+
+- name: Assert every puppet_keys entry is a full 40-hex-digit fingerprint.
+  ansible.builtin.assert:
+    that:
+      - puppet_keys | reject('match', '^[0-9A-Fa-f]{40}$') | list | length == 0
+    fail_msg: >-
+      Every puppet_keys entry must be a 40 hex digit fingerprint, got:
+      {{ puppet_keys | reject('match', '^[0-9A-Fa-f]{40}$') | list }}
+    quiet: true

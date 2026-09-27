@@ -1,25 +1,38 @@
 ---
-
-- hosts: all
-  become: true
-
+- name: Prepare
+  hosts: all
+  gather_facts: false
   tasks:
-    - name: Update apt cache.
-      apt:
+    # EL-family images ship /etc/shadow as mode 0000. On Ubuntu Docker hosts
+    # (GitHub runners) AppArmor denies unix_chkpwd the DAC override it needs
+    # to read it, so sudo and become fail. Only touch images that are 0000.
+    # https://github.com/geerlingguy/docker-rockylinux9-ansible/issues/6
+    - name: Make /etc/shadow readable by root so become works.
+      ansible.builtin.raw: >-
+        [ "$(stat -c %a /etc/shadow)" != 0 ] || chmod 0400 /etc/shadow
+      changed_when: false
+
+- name: Install Puppet so the role has something to remove
+  hosts: all
+  become: true
+  tasks:
+    - name: Update the apt cache.
+      ansible.builtin.apt:
         update_cache: true
         cache_valid_time: 600
       when: ansible_os_family == 'Debian'
 
-    - name: Install prereqs.
-      apt:
-        name:
-          - gnupg
-          - puppet
-      when: ansible_os_family == 'Debian'
+    - name: Install EPEL for the Puppet package.
+      ansible.builtin.dnf:
+        name: epel-release
+        state: present
+      when: ansible_os_family == 'RedHat'
 
-    - name: Install puppet.
-      yum:
+    - name: Install the distribution Puppet package.
+      ansible.builtin.package:
         name: puppet
-      when:
-        - ansible_os_family is defined
-        - ansible_os_family == "RedHat"
+        state: present
+
+    - name: Confirm Puppet is installed before converge.
+      ansible.builtin.command: puppet --version
+      changed_when: false

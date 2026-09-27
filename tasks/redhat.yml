@@ -1,7 +1,6 @@
 ---
-
 - name: Remove puppetlabs GPG keys.
-  rpm_key:
+  ansible.builtin.rpm_key:
     key: "{{ item }}"
     state: absent
-  with_items: "{{ puppet_keys }}"
+  loop: "{{ puppet_keys }}"

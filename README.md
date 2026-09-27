@@ -14,8 +14,15 @@ Be sure you install the galaxy role in your runtime server.
 ansible-galaxy install deekayen.sadpuppet
 ```
 
+Tested with Molecule on EL 9, Ubuntu 22.04/24.04/26.04, and Debian 12/13.
+
 Default Variables
 -----------------
+
+    # Debian 12+ and Ubuntu 24.04+ ship the agent as puppet-agent.
+    puppet_packages:
+      - puppet
+      - puppet-agent
 
     puppet_paths:
       - /etc/logrotate.d/puppet

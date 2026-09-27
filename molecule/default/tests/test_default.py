@@ -1,18 +1,30 @@
+"""Testinfra checks for the sadpuppet role."""
+
 import os
-import testinfra.utils.ansible_runner
 
-testinfra_hosts = testinfra.utils.ansible_runner.AnsibleRunner(
-    os.environ['MOLECULE_INVENTORY_FILE']).get_hosts('all')
+import pytest
+import yaml
+
+DEFAULTS = os.path.join(
+    os.path.dirname(__file__), "..", "..", "..", "defaults", "main.yml"
+)
+with open(DEFAULTS) as defaults_file:
+    ROLE_DEFAULTS = yaml.safe_load(defaults_file)
 
 
-def test_dependencies_installed(host):
-    assert not host.package("puppet").is_installed
+@pytest.mark.parametrize("name", ROLE_DEFAULTS["puppet_packages"])
+def test_packages_removed(host, name):
+    assert not host.package(name).is_installed
 
 
-def test_dependencies_service(host):
+def test_puppet_command_gone(host):
+    assert not host.exists("puppet")
+
+
+def test_service_gone(host):
     assert not host.service("puppet").is_enabled
 
 
-def test_meshchat_files(host):
-    assert not host.file("/etc/tmpfiles.d/puppet.conf").exists
-    assert not host.file("/usr/lib/systemd/system/puppet.service").exists
+@pytest.mark.parametrize("path", ROLE_DEFAULTS["puppet_paths"])
+def test_paths_removed(host, path):
+    assert not host.file(path).exists

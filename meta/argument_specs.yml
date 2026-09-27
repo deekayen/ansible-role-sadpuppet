@@ -1,0 +1,45 @@
+---
+argument_specs:
+  main:
+    short_description: Remove Puppet agents.
+    description:
+      - Removes Puppet agent packages, leftover files and directories, and
+        the puppetlabs package signing keys.
+    author:
+      - David Norman
+    options:
+      puppet_packages:
+        type: list
+        elements: str
+        default:
+          - puppet
+          - puppet-agent
+        description: Package names to remove.
+      puppet_paths:
+        type: list
+        elements: path
+        default:
+          - /etc/logrotate.d/puppet
+          - /etc/yum.repos.d/puppetlabs-deps.repo
+          - /etc/yum.repos.d/puppetlabs-products.repo
+          - /etc/puppet
+          - /etc/tmpfiles.d/puppet.conf
+          - /usr/bin/puppet
+          - /usr/share/puppet
+          - /usr/lib/systemd/system/puppet.service
+          - /usr/lib/systemd/system/puppetagent.service
+          - /usr/share/ruby/vendor_ruby/puppet
+          - /usr/lib/puppet
+          - /var/log/puppet
+          - /var/run/puppet
+        description: Absolute paths to delete after the packages are removed.
+      puppet_keys:
+        type: list
+        elements: str
+        default:
+          - 6F6B15509CF8E59E6E469F327F438280EF8D349F
+          - 47B320EB4C7C375AA9DAE1A01054B7A24BD6EC30
+          - 9C6C545246912EE700FB5682FFAC86588347A27F
+        description: >-
+          Fingerprints of puppetlabs signing keys to remove from the apt or
+          rpm keyring.
